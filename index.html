@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. José Santiago Torres Velásquez - Cálculo Diferencial | CUN</title>
+    <style>
+        :root {
+            --purple-dark: #10002B;
+            --purple-header: #240046;
+            --purple-main: #5a189a;
+            --purple-accent: #7b2cbf;
+            --purple-light-bg: #F5F0FF;
+            --blue-accent: #00b4d8;
+            --blue-glow: #00d4ff;
+            --card-bg: #FFFFFF;
+            --text-dark: #10002b;
+            --text-muted: #4a4e69;
+            --border-color: #d8b4fe;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--purple-light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--purple-dark), var(--purple-header));
+            color: white;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-bottom: 5px solid var(--blue-accent);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cun-logo {
+            background-color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            max-width: 200px;
+            height: auto;
+        }
+
+        header h1 {
+            margin: 10px 0 0 0;
+            font-size: 2.3rem;
+            color: #ffffff;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 5px 0 0 0;
+            color: #E0AAFF;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            background: var(--card-bg);
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(90, 24, 154, 0.08);
+            border: 1px solid var(--border-color);
+        }
+        
+        h2 {
+            color: var(--purple-main);
+            border-bottom: 2px solid var(--blue-accent);
+            padding-bottom: 10px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-box {
+            background: var(--purple-light-bg);
+            padding: 18px;
+            border-left: 4px solid var(--purple-main);
+            border-radius: 6px;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            color: var(--purple-main);
+        }
+
+        .schedule-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #EBE0FF;
+            border: 1px solid var(--blue-accent);
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--purple-dark);
+        }
+
+        /* Temario modular */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .topic-card {
+            background: var(--purple-light-bg);
+            border: 1px solid var(--border-color);
+            border-top: 4px solid var(--blue-accent);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .topic-card h4 {
+            margin: 0 0 8px 0;
+            color: var(--purple-main);
+        }
+
+        /* Puzles y Simulador */
+        .puzzle-box {
+            background: var(--purple-light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .puzzle-box input[type="number"] {
+            padding: 9px 12px;
+            font-size: 1rem;
+            width: 130px;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            background: #ffffff;
+            color: var(--text-dark);
+        }
+
+        .puzzle-box button {
+            padding: 10px 18px;
+            font-size: 1rem;
+            background: linear-gradient(135deg, var(--purple-main), var(--purple-accent));
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .puzzle-box button:hover {
+            background: var(--blue-accent);
+            transform: translateY(-2px);
+        }
+
+        .feedback {
+            margin-top: 12px;
+            font-weight: bold;
+            min-height: 24px;
+        }
+
+        .success { color: var(--purple-main); }
+        .error { color: #D32F2F; }
+
+        /* Controls Slider para Canvas */
+        .canvas-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .canvas-controls input[type="range"] {
+            width: 200px;
+            accent-color: var(--blue-accent);
+        }
+
+        /* Canvas interactivo cibernético */
+        #calculus-canvas {
+            background: #0D0B1D;
+            display: block;
+            margin: 15px auto;
+            border: 3px solid var(--blue-accent);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.2);
+        }
+
+        .cortes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .corte-card {
+            background: var(--purple-light-bg);
+            border-left: 5px solid var(--blue-accent);
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+
+        .contact-info {
+            text-align: center;
+            background: linear-gradient(135deg, var(--purple-dark), var(--purple-header));
+            color: white;
+        }
+
+        .contact-info h2 {
+            color: #ffffff;
+            justify-content: center;
+            border-bottom-color: var(--blue-accent);
+        }
+
+        .contact-info a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--blue-accent), var(--blue-glow));
+            color: #0d0b1d;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .contact-info a:hover {
+            background: #ffffff;
+            color: var(--purple-main);
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--purple-dark);
+            color: #E0AAFF;
+            font-size: 0.9rem;
+        }
+
+        @media(max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            #calculus-canvas { width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado con Logo Oficial CUN -->
+    <header>
+        <div class="header-content">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxHKhiSvN8Cf3exqRZ87nkZZX6OErYO1BNIrbuXg7VHQ&s" alt="Escudo CUN" class="cun-logo">
+            <h1>José Santiago Torres Velásquez</h1>
+            <p>Docente de Cálculo Diferencial | CUN</p>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Perfil y Desarrollo Teórico -->
+        <section>
+            <h2>📐 Perfil Docente & Gestión Académica</h2>
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3>Perfil y Desarrollo Teórico</h3>
+                    <p>Profesor encargado de acompañar y apoyar el fortalecimiento de competencias matemáticas fundamentales.</p>
+                    <p><strong>Enfoque:</strong> Desarrollo de habilidades de análisis, interpretación y resolución de problemas aplicados a los diferentes contextos de la ingeniería y la gestión empresarial.</p>
+                </div>
+                <div class="info-box">
+                    <h3>Comunicación y Gestión</h3>
+                    <p><strong>Correo Institucional:</strong> jose_torresve@cun.edu.co</p>
+                    <p><strong>Plataforma Oficial:</strong> Cdigital (Medio para quices, parciales, proyecto Pitch y material de apoyo).</p>
+                    <p><strong>Seguimiento:</strong> Es fundamental la revisión constante de Cdigital para el desarrollo oportuno de las actividades.</p>
+                </div>
+            </div>
+            
+            <div class="schedule-box">
+                🔹 <strong>El Lenguaje del Modelado:</strong> "El Cálculo Diferencial es la herramienta para entender cómo cambia el mundo y optimizar sistemas reales en la ingeniería."
+            </div>
+        </section>
+
+        <!-- Ejes Temáticos del Curso -->
+        <section>
+            <h2>📚 Núcleos Temáticos del Curso</h2>
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <h4>1. Relaciones y Funciones</h4>
+                    <p>Conceptos de Modelo Determinista, prueba de la recta vertical, dominio y rango. Restricciones duras como $Q(x) \neq 0$ y radicación $h(x) \ge 0$.</p>
+                </div>
+                <div class="topic-card">
+                    <h4>2. Tipos y Operaciones</h4>
+                    <p>Funciones algebraicas y trascendentales. Composición de modelos $(f \circ g)(x)$ y modelos económicos de costo, ingreso y utilidad.</p>
+                </div>
+                <div class="topic-card">
+                    <h4>3. Dominando los Límites</h4>
+                    <p>Lógica de la aproximación $\lim_{x \to a} f(x) = L$, límites laterales, indeterminaciones $0/0$ y límites al infinito.</p>
+                </div>
+                <div class="topic-card">
+                    <h4>4. Continuidad y Estabilidad</h4>
+                    <p>Criterios de estabilidad en sistemas, análisis de discontinuidades evitables, de salto e infinitas (asíntotas).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Laboratorio Virtual de Cálculo -->
+        <section>
+            <h2>⚡ Laboratorio Virtual: Retos & Simulador de Cálculo</h2>
+            <p>Pon a prueba tu pensamiento matemático con estos retos interactivos basados en el material de clase:</p>
+            
+            <!-- Puzle 1: Dominio y Restricciones -->
+            <div class="puzzle-box">
+                <h3>1. Restricciones de Dominio en un Sistema</h3>
+                <p>Un sensor industrial modela la eficiencia del sistema con la función radical:</p>
+                <p style="text-align: center; font-size: 1.2rem; color: var(--purple-main);"><strong>g(x) = √(x - 25)</strong></p>
+                <p>Para evitar números no reales o fallas en el procesador (restricción dura $h(x) \ge 0$), ¿cuál es el <strong>valor mínimo permitido para x</strong> en el dominio del sistema?</p>
+                <input type="number" id="respDom" placeholder="Ej: 0">
+                <button onclick="validarDominio()">Verificar Dominio</button>
+                <div id="feedbackDom" class="feedback"></div>
+            </div>
+
+            <!-- Puzle 2: Indeterminación 0/0 -->
+            <div class="puzzle-box">
+                <h3>2. Eliminación de Indeterminación (0/0)</h3>
+                <p>Evalúa el siguiente límite indeterminado cuando la variable tiende a 3:</p>
+                <p style="text-align: center; font-size: 1.3rem; color: var(--purple-main);"><strong>lim (x → 3) [ (x² - 9) / (x - 3) ]</strong></p>
+                <p>Aplica la técnica algebraica de factorización <em>(x-3)(x+3)</em> para cancelar la indeterminación. ¿A qué valor $L$ se acerca la función?</p>
+                <input type="number" id="respLim" placeholder="Ej: 5">
+                <button onclick="validarLimite()">Calcular Límite</button>
+                <div id="feedbackLim" class="feedback"></div>
+            </div>
+
+            <!-- Simulador Canvas: Interpretación Geométrica del Límite y la Derivada -->
+            <div class="puzzle-box">
+                <h3>3. Simulador Interactivo: De la Recta Secante a la Recta Tangente</h3>
+                <p>Mueve el deslizador del paso <strong>Δx (h)</strong> para observar cómo la recta secante entre $P(x)$ y $Q(x + \Delta x)$ se transforma en la **recta tangente** cuando $\Delta x \to 0$ (la definición formal del límite de la derivada):</p>
+                
+                <div class="canvas-controls">
+                    <label for="stepSlider"><strong>Incr. Δx (h): </strong></label>
+                    <input type="range" id="stepSlider" min="1" max="120" value="80" step="1">
+                    <span id="sliderVal" style="font-weight: bold; color: var(--purple-main);">80</span>
+                </div>
+
+                <canvas id="calculus-canvas" width="600" height="300"></canvas>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+                    🔵 Azul Creciente: Curva $f(x)$ | 🟣 Morado: Secante | 💖 Neón: Recta Tangente en el límite
+                </p>
+            </div>
+        </section>
+
+        <!-- Plan de Evaluación CUN -->
+        <section>
+            <h2>📅 Plan de Evaluación Semestral</h2>
+            <div class="cortes-container">
+                <div class="corte-card">
+                    <strong>🔹 Primer Corte (30%) - Fundamentación</strong>
+                    <ul>
+                        <li>Evaluación de conceptos iniciales, dominio, rango y límites en Cdigital.</li>
+                        <li>Quices periódicos y Parcial del Primer Corte.</li>
+                    </ul>
+                </div>
+                <div class="corte-card">
+                    <strong>🔹 Segundo Corte (30%) - Desarrollo y Modelado</strong>
+                    <ul>
+                        <li>Mesa de debate y aplicación de reglas de derivación.</li>
+                        <li>Ajustes al avance del Proyecto Pitch.</li>
+                    </ul>
+                </div>
+                <div class="corte-card">
+                    <strong>🔹 Tercer Corte (40%) - Cierre & Proyecto Pitch</strong>
+                    <ul>
+                        <li>Semana 12: Presentación final del Proyecto Pitch (30%).</li>
+                        <li>Quiz de Cierre (6%).</li>
+                        <li>Autoevaluación y Coevaluación (4%).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section class="contact-info">
+            <h2>✉️ Canal Oficial de Contacto</h2>
+            <p>¿Tienes dudas sobre los talleres, límites o el avance de tu Proyecto Pitch?</p>
+            <p style="font-size: 1.2rem; font-weight: bold;">jose_torresve@cun.edu.co</p>
+            <a href="mailto:jose_torresve@cun.edu.co">Enviar correo al Profesor Santiago</a>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 José Santiago Torres Velásquez | Corporación Unificada Nacional de Educación Superior (CUN)</p>
+    </footer>
+
+    <!-- Scripts de Interactividad -->
+    <script>
+        function validarDominio() {
+            const val = parseFloat(document.getElementById('respDom').value);
+            const fb = document.getElementById('feedbackDom');
+            if (val === 25) {
+                fb.className = "feedback success";
+                fb.innerHTML = "¡Excelente! 🎯 Para x ≥ 25 el argumento de la raíz no es negativo, garantizando valores en los números reales.";
+            } else if (isNaN(val)) {
+                fb.className = "feedback error";
+                fb.innerHTML = "Por favor, ingresa un número.";
+            } else {
+                fb.className = "feedback error";
+                fb.innerHTML = "Incorrecto. Recuerda que x - 25 debe ser mayor o igual a 0.";
+            }
+        }
+
+        function validarLimite() {
+            const val = parseFloat(document.getElementById('respLim').value);
+            const fb = document.getElementById('feedbackLim');
+            if (val === 6) {
+                fb.className = "feedback success";
+                fb.innerHTML = "¡Correcto! 📐 Al simplificar (x-3)(x+3)/(x-3) queda (x+3). Al evaluar x=3, el límite L = 6.";
+            } else if (isNaN(val)) {
+                fb.className = "feedback error";
+                fb.innerHTML = "Por favor, ingresa un número.";
+            } else {
+                fb.className = "feedback error";
+                fb.innerHTML = "Inténtalo de nuevo. Factoriza la diferencia de cuadrados en el numerador.";
+            }
+        }
+
+        const canvas = document.getElementById('calculus-canvas');
+        const ctx = canvas.getContext('2d');
+        const slider = document.getElementById('stepSlider');
+        const sliderVal = document.getElementById('sliderVal');
+
+        function f(x) {
+            return 250 - 0.002 * Math.pow(x - 100, 2);
+        }
+
+        function fPrime(x) {
+            return -0.004 * (x - 100);
+        }
+
+        function drawCalculus() {
+            const dx = parseFloat(slider.value);
+            sliderVal.innerText = dx;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Rejilla estilo neón
+            ctx.strokeStyle = "rgba(123, 44, 191, 0.25)";
+            ctx.lineWidth = 1;
+            for(let i = 0; i < canvas.width; i += 40) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+            }
+            for(let j = 0; j < canvas.height; j += 40) {
+                ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
+            }
+
+            // Dibujar función f(x) en azul cian
+            ctx.beginPath();
+            ctx.strokeStyle = "#00d4ff";
+            ctx.lineWidth = 3;
+            for (let x = 0; x <= canvas.width; x += 2) {
+                let y = f(x);
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            const x0 = 220;
+            const y0 = f(x0);
+            const x1 = x0 + dx;
+            const y1 = f(x1);
+
+            const mSec = (y1 - y0) / (x1 - x0);
+
+            // Dibujar línea secante en morado/violeta
+            ctx.beginPath();
+            ctx.strokeStyle = "#e0aaff";
+            ctx.lineWidth = 2;
+            ctx.moveTo(x0 - 150, y0 - mSec * 150);
+            ctx.lineTo(x0 + 200, y0 + mSec * 200);
+            ctx.stroke();
+
+            // Dibujar recta tangente en neón rosado/magentoso
+            const mTan = fPrime(x0);
+            if (dx < 15) {
+                ctx.beginPath();
+                ctx.strokeStyle = "#f72585";
+                ctx.setLineDash([5, 5]);
+                ctx.lineWidth = 2;
+                ctx.moveTo(x0 - 150, y0 - mTan * 150);
+                ctx.lineTo(x0 + 200, y0 + mTan * 200);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // Punto P
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.arc(x0, y0, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = "#00d4ff";
+            ctx.font = "bold 12px sans-serif";
+            ctx.fillText("P(x)", x0 - 10, y0 - 12);
+
+            // Punto Q
+            ctx.fillStyle = "#e0aaff";
+            ctx.beginPath();
+            ctx.arc(x1, y1, 6, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillText("Q(x+Δx)", x1 + 8, y1 + 5);
+
+            // Métricas
+            ctx.fillStyle = "#ffffff";
+            ctx.font = "13px monospace";
+            ctx.fillText(`Δx (h) = ${dx.toFixed(1)}`, 20, 30);
+            ctx.fillText(`Pendiente Secante m = ${mSec.toFixed(4)}`, 20, 50);
+            ctx.fillText(`Pendiente Tangente (Límite f') = ${mTan.toFixed(4)}`, 20, 70);
+        }
+
+        slider.addEventListener('input', drawCalculus);
+        drawCalculus();
+    </script>
+</body>
+</html>
